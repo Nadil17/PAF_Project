@@ -99,7 +99,7 @@ const FirstHome = () => {
 <div className="mt-16 grid md:grid-cols-2 gap-8 items-center">
   <div className="order-2 md:order-1">
     <img 
-      src="/images/farming-landscape.jpg"
+      src="/images/About_us_img.jpg"
       alt="About Us"
       className="rounded-xl shadow-xl"
     />
