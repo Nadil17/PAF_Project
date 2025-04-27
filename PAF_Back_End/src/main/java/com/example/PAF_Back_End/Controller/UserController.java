@@ -33,7 +33,7 @@ public class UserController {
     @GetMapping("/login/oauth2/success")
     public void loginSuccess(HttpServletResponse response) throws IOException {
         System.out.println("OAuth2 login success! Redirecting to dashboard...");
-        response.sendRedirect("http://localhost:3000/dashboard");
+        response.sendRedirect("http://localhost:3000/Home");
     }
 
     @PostMapping("/logout")
