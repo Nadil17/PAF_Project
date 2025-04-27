@@ -8,6 +8,10 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import java.util.List;
 
 @RestController
@@ -73,4 +77,55 @@ public class QuestionController {
         QuestionDTO updatedQuestion = questionService.removeUpvote(id, userEmail);
         return ResponseEntity.ok(updatedQuestion);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<QuestionDTO> updateQuestion(
+        @PathVariable Long id,
+        @RequestBody QuestionDTO questionDTO,
+        @AuthenticationPrincipal OAuth2User principal) {
+    if (principal == null) {
+        return ResponseEntity.status(401).build();
+    }
+    
+    String userEmail = principal.getAttribute("email");
+    QuestionDTO updatedQuestion = questionService.updateQuestion(id, questionDTO, userEmail);
+    return ResponseEntity.ok(updatedQuestion);
+}
+
+@DeleteMapping("/{id}")
+public ResponseEntity<Void> deleteQuestion(
+        @PathVariable Long id,
+        @AuthenticationPrincipal OAuth2User principal) {
+    if (principal == null) {
+        return ResponseEntity.status(401).build();
+    }
+    
+    String userEmail = principal.getAttribute("email");
+    questionService.deleteQuestion(id, userEmail);
+    return ResponseEntity.noContent().build();
+}
+
+@GetMapping("/sort/upvotes")
+public ResponseEntity<List<QuestionDTO>> getAllQuestionsSortedByUpvotes(
+        @AuthenticationPrincipal OAuth2User principal) {
+    String userEmail = principal != null ? principal.getAttribute("email") : null;
+    List<QuestionDTO> questions = questionService.getAllQuestionsSortedByUpvotes(userEmail);
+    return ResponseEntity.ok(questions);
+}
+
+@GetMapping("/sort/upvotes-and-newest")
+public ResponseEntity<List<QuestionDTO>> getAllQuestionsSortedByUpvotesAndNewest(
+        @AuthenticationPrincipal OAuth2User principal) {
+    String userEmail = principal != null ? principal.getAttribute("email") : null;
+    List<QuestionDTO> questions = questionService.getAllQuestionsSortedByUpvotesAndNewest(userEmail);
+    return ResponseEntity.ok(questions);
+}
+
+@GetMapping("/sort/answer-count")
+public ResponseEntity<List<QuestionDTO>> getAllQuestionsSortedByAnswerCount(
+        @AuthenticationPrincipal OAuth2User principal) {
+    String userEmail = principal != null ? principal.getAttribute("email") : null;
+    List<QuestionDTO> questions = questionService.getAllQuestionsSortedByAnswerCount(userEmail);
+    return ResponseEntity.ok(questions);
+}
 }

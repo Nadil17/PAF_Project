@@ -3,6 +3,7 @@ package com.example.PAF_Back_End.Config;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod; //Added for Q and A
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.config.Customizer;
@@ -21,11 +22,18 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(antMatcher("/api/user/**")).authenticated()
+                        //added for Q and A
+                        .requestMatchers(antMatcher("/api/questions")).permitAll()
+                        .requestMatchers(antMatcher("/api/questions/*")).permitAll()
+                        .requestMatchers(antMatcher("/api/questions/*/upvote")).authenticated()
+                        .requestMatchers(antMatcher("/api/questions/*/remove-upvote")).authenticated()
+                        .requestMatchers(antMatcher("/api/answers/question/*")).authenticated()
+                        .requestMatchers(antMatcher(HttpMethod.POST, "/api/questions")).authenticated()
                         .anyRequest().permitAll()
                 )
                 .oauth2Login(oauth2 -> oauth2
                         .successHandler((request, response, authentication) -> {
-                            response.sendRedirect("http://localhost:3000/createpost");
+                            response.sendRedirect("http://localhost:3000/questions");
                         })
                 )
                 .logout(logout -> logout
