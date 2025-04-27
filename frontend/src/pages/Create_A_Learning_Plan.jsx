@@ -64,12 +64,7 @@ function Create_A_Learning_Plan() {
                         Create Plan
                     </button>
 
-                    <button
-                        onClick={handleViewplanButton}
-                        className="w-full bg-gray-300 text-gray-800 py-2 rounded hover:bg-gray-400 transition duration-300"
-                    >
-                        View My Plans
-                    </button>
+                    
                 </div>
 
                 <p className="text-center text-sm text-gray-400 mt-6">
