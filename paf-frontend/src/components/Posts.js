@@ -152,85 +152,148 @@ function Posts() {
     }));
   };
 
-  if (loading) return <div className="flex items-center justify-center h-64 text-green-700 text-xl">Loading posts...</div>;
-  if (error) return <div className="bg-red-50 text-red-700 p-4 rounded-lg text-center">{error}</div>;
+  if (loading) return (
+    <div className="flex items-center justify-center h-64">
+      <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-green-500"></div>
+    </div>
+  );
+  
+  if (error) return (
+    <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded-lg text-center">
+      <p className="text-red-700 font-medium">{error}</p>
+    </div>
+  );
 
   return (
-    <div className="max-w-2xl mx-auto p-4 bg-gray-50 font-sans">
-      {/* Header with Facebook-like green theme */}
-      <div className="bg-green-600 text-white p-4 rounded-t-lg shadow-md mb-6">
-        <h1 className="text-2xl font-bold">Green Social</h1>
+    <div className="max-w-3xl mx-auto p-4 bg-gray-50 font-sans">
+      {/* Modern Header with Gradient */}
+      <div className="bg-green-500 text-white p-6 rounded-xl shadow-lg mb-8">
+        <div className="flex items-center justify-between">
+          <h1 className="text-3xl font-bold">Green Social</h1>
+          <div className="flex items-center space-x-2">
+            <span className="h-3 w-3 bg-white rounded-full animate-pulse"></span>
+            <span className="text-sm font-medium">Social • Connected</span>
+          </div>
+        </div>
       </div>
       
-      {/* Create Post Form */}
-      <div className="bg-white rounded-lg shadow-md mb-6 p-4">
-        <h2 className="text-lg font-semibold text-green-700 mb-4">Create a New Post</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <textarea
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent resize-y"
-              placeholder="What's on your mind?"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              rows="3"
-            />
-          </div>
-          
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Upload Image or Video
-              <input 
-                className="mt-1 block w-full border border-gray-300 shadow-sm rounded-md text-sm file:mr-4 file:py-2 file:px-4 file:border-0 file:bg-green-50 file:text-green-700 hover:file:bg-green-100"
-                type="file"
-                accept="image/*,video/*"
-                onChange={handleFileChange}
-              />
-            </label>
-          </div>
-          
-          {filePreview && (
+      {/* Create Post Form with Improved UI */}
+      <div className="bg-white rounded-xl shadow-md mb-8 overflow-hidden">
+        <div className="p-6">
+          <h2 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+            </svg>
+            Create a Post
+          </h2>
+          <form onSubmit={handleSubmit}>
             <div className="mb-4">
-              {file.type.startsWith('image/') ? (
-                <img className="max-h-64 rounded-lg mx-auto" src={filePreview} alt="Preview" />
-              ) : file.type.startsWith('video/') ? (
-                <video className="max-h-64 rounded-lg mx-auto" src={filePreview} controls />
-              ) : null}
+              <textarea
+                className="w-full p-4 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent resize-y transition-all bg-gray-50"
+                placeholder="What's on your mind?"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                rows="3"
+              />
             </div>
-          )}
-          
-          <button 
-            type="submit" 
-            className={`w-full py-2 px-4 rounded-lg text-white font-medium ${isSubmitting ? 'bg-green-400 cursor-not-allowed' : 'bg-green-600 hover:bg-green-700'}`}
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? 'Posting...' : 'Post'}
-          </button>
-        </form>
+            
+            <div className="mb-4">
+              <label className="flex items-center justify-center w-full h-16 border-2 border-dashed border-green-300 rounded-xl cursor-pointer hover:bg-green-50 transition-colors">
+                <div className="flex flex-col items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-green-500 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  <span className="text-sm text-green-600 font-medium">Upload Image or Video</span>
+                </div>
+                <input 
+                  className="hidden"
+                  type="file"
+                  accept="image/*,video/*"
+                  onChange={handleFileChange}
+                />
+              </label>
+            </div>
+            
+            {filePreview && (
+              <div className="mb-4 relative">
+                <button 
+                  className="absolute top-2 right-2 bg-red-500 text-white w-8 h-8 rounded-full flex items-center justify-center shadow-md hover:bg-red-600 transition-colors"
+                  onClick={() => {setFile(null); setFilePreview(null)}}
+                  type="button"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                  </svg>
+                </button>
+                <div className="bg-gray-100 p-2 rounded-xl overflow-hidden">
+                  {file.type.startsWith('image/') ? (
+                    <img className="max-h-64 rounded-lg mx-auto object-contain" src={filePreview} alt="Preview" />
+                  ) : file.type.startsWith('video/') ? (
+                    <video className="max-h-64 rounded-lg mx-auto" src={filePreview} controls />
+                  ) : null}
+                </div>
+              </div>
+            )}
+            
+            <button 
+              type="submit" 
+              className={`w-full py-3 px-4 rounded-xl text-white font-medium shadow-md transition-all transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 ${isSubmitting ? 'bg-green-400 cursor-not-allowed' : 'bg-green-500'}`}
+              disabled={isSubmitting}
+              
+            >
+              {isSubmitting ? (
+                <span className="flex items-center justify-center">
+                  <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Posting...
+                </span>
+              ) : 'Publish Post'}
+            </button>
+          </form>
+        </div>
       </div>
 
-      {/* Posts List */}
-      <div className="mb-6">
-        <h2 className="text-lg font-semibold text-green-700 mb-4">Recent Posts</h2>
+      {/* Posts List with Modern Design */}
+      <div className="mb-8">
+        <h2 className="text-xl font-bold text-gray-800 mb-6 flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+          </svg>
+          Recent Posts
+        </h2>
         {posts.length === 0 ? (
-          <p className="text-center py-8 text-gray-500 italic">No posts yet. Be the first to share!</p>
+          <div className="bg-white rounded-xl shadow-md p-8 text-center">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 mx-auto text-gray-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+            </svg>
+            <p className="text-gray-500 text-lg font-medium">No posts yet. Be the first to share!</p>
+          </div>
         ) : (
           <div className="space-y-6">
             {posts.map(post => (
-              <div key={post.id} className="bg-white rounded-lg shadow-md overflow-hidden">
+              <div key={post.id} className="bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg">
                 {editPostId === post.id ? (
-                  <div className="p-4">
+                  <div className="p-6">
+                    <h3 className="text-lg font-semibold text-gray-800 mb-4">Edit Your Post</h3>
                     <textarea
-                      className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent resize-y mb-4"
+                      className="w-full p-4 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent resize-y transition-all bg-gray-50 mb-4"
                       value={editDescription}
                       onChange={(e) => setEditDescription(e.target.value)}
                       rows="3"
                     />
                     
                     <div className="mb-4">
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Change Image/Video
+                      <label className="flex items-center justify-center w-full h-16 border-2 border-dashed border-green-300 rounded-xl cursor-pointer hover:bg-green-50 transition-colors">
+                        <div className="flex flex-col items-center">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-green-500 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                          </svg>
+                          <span className="text-sm text-green-600 font-medium">Change Image or Video</span>
+                        </div>
                         <input 
-                          className="mt-1 block w-full border border-gray-300 shadow-sm rounded-md text-sm file:mr-4 file:py-2 file:px-4 file:border-0 file:bg-green-50 file:text-green-700 hover:file:bg-green-100"
+                          className="hidden"
                           type="file"
                           accept="image/*,video/*"
                           onChange={handleEditFileChange}
@@ -239,26 +302,37 @@ function Posts() {
                     </div>
                     
                     {editFilePreview && (
-                      <div className="mb-4">
-                        {(editFile && editFile.type.startsWith('image/')) ||
-                        (!editFile && post.contentType === 'image') ? (
-                          <img className="max-h-64 rounded-lg mx-auto" src={editFilePreview} alt="Preview" />
-                        ) : (editFile && editFile.type.startsWith('video/')) ||
-                          (!editFile && post.contentType === 'video') ? (
-                          <video className="max-h-64 rounded-lg mx-auto" src={editFilePreview} controls />
-                        ) : null}
+                      <div className="mb-4 relative">
+                        <button 
+                          className="absolute top-2 right-2 bg-red-500 text-white w-8 h-8 rounded-full flex items-center justify-center shadow-md hover:bg-red-600 transition-colors"
+                          onClick={() => {setEditFile(null); setEditFilePreview(null)}}
+                          type="button"
+                        >
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                          </svg>
+                        </button>
+                        <div className="bg-gray-100 p-2 rounded-xl overflow-hidden">
+                          {(editFile && editFile.type.startsWith('image/')) || 
+                          (!editFile && post.contentType === 'image') ? (
+                            <img className="max-h-64 rounded-lg mx-auto object-contain" src={editFilePreview} alt="Preview" />
+                          ) : (editFile && editFile.type.startsWith('video/')) || 
+                            (!editFile && post.contentType === 'video') ? (
+                            <video className="max-h-64 rounded-lg mx-auto" src={editFilePreview} controls />
+                          ) : null}
+                        </div>
                       </div>
                     )}
                     
                     <div className="flex space-x-3">
                       <button 
-                        className="flex-1 py-2 px-3 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
+                        className="flex-1 py-3 px-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl shadow-md hover:from-green-600 hover:to-emerald-700 focus:outline-none transition-colors"
                         onClick={() => handleSaveEdit(post.id)}
                       >
                         Save Changes
                       </button>
                       <button 
-                        className="flex-1 py-2 px-3 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400"
+                        className="flex-1 py-3 px-4 bg-gray-200 text-gray-800 rounded-xl shadow-md hover:bg-gray-300 focus:outline-none transition-colors"
                         onClick={handleCancelEdit}
                       >
                         Cancel
@@ -267,22 +341,22 @@ function Posts() {
                   </div>
                 ) : (
                   <>
-                    <div className="p-4 border-b border-gray-100">
+                    <div className="p-5 border-b border-gray-100">
                       <div className="flex justify-between items-start">
                         <div className="flex items-center space-x-3">
-                          <div className="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 font-bold">
+                          <div className="h-12 w-12 rounded-full bg-gradient-to-br from-green-400 to-emerald-500 flex items-center justify-center text-white font-bold shadow-inner">
                             {post.userName ? post.userName.charAt(0).toUpperCase() : 'U'}
                           </div>
                           <div>
-                            <span className="font-medium text-gray-900">{post.userName}</span>
+                            <span className="font-semibold text-gray-900">{post.userName}</span>
                             <p className="text-xs text-gray-500">{new Date(post.createdAt).toLocaleString()}</p>
                           </div>
                         </div>
                         
                         {post.userId === post.userId && (
-                          <div className="flex space-x-2">
+                          <div className="flex space-x-1">
                             <button 
-                              className="p-1 text-sm text-gray-500 hover:text-green-600 focus:outline-none"
+                              className="p-2 text-gray-500 hover:text-green-600 rounded-full hover:bg-green-50 transition-colors focus:outline-none"
                               onClick={() => handleStartEdit(post)}
                             >
                               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -290,7 +364,7 @@ function Posts() {
                               </svg>
                             </button>
                             <button 
-                              className="p-1 text-sm text-gray-500 hover:text-red-600 focus:outline-none"
+                              className="p-2 text-gray-500 hover:text-red-600 rounded-full hover:bg-red-50 transition-colors focus:outline-none"
                               onClick={() => handleDelete(post.id)}
                             >
                               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -302,51 +376,55 @@ function Posts() {
                       </div>
                     </div>
                     
-                    <div className="p-4">
+                    <div className="p-5">
                       {post.description && (
-                        <p className="text-gray-800 mb-4 whitespace-pre-line">{post.description}</p>
+                        <p className="text-gray-800 mb-6 whitespace-pre-line text-lg">{post.description}</p>
                       )}
                       
                       {post.filePath && post.contentType === 'image' && (
-                        <div className="flex justify-center">
-                          <img 
-                            className="max-w-full rounded-lg" 
-                            src={`http://localhost:8080${post.filePath}`} 
-                            alt="Post content" 
-                          />
+                        <div className="flex justify-center mb-4">
+                          <div className="rounded-xl overflow-hidden shadow-md transition-transform hover:scale-[1.01]">
+                            <img 
+                              className="max-w-full" 
+                              src={`http://localhost:8080${post.filePath}`} 
+                              alt="Post content" 
+                            />
+                          </div>
                         </div>
                       )}
                       
                       {post.filePath && post.contentType === 'video' && (
-                        <div className="flex justify-center">
-                          <video 
-                            className="max-w-full rounded-lg" 
-                            src={`http://localhost:8080${post.filePath}`} 
-                            controls 
-                          />
+                        <div className="flex justify-center mb-4">
+                          <div className="rounded-xl overflow-hidden shadow-md w-full">
+                            <video 
+                              className="w-full" 
+                              src={`http://localhost:8080${post.filePath}`} 
+                              controls 
+                            />
+                          </div>
                         </div>
                       )}
                     </div>
                     
-                    <div className="p-3 bg-gray-50 border-t border-gray-100">
+                    <div className="p-4 bg-gray-50 border-t border-gray-100">
                       <div className="flex justify-around">
-                        <button className="flex items-center justify-center py-2 px-4 rounded-md hover:bg-gray-100 text-green-600">
-                          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <button className="flex items-center justify-center py-2 px-4 rounded-xl hover:bg-gray-100 text-green-600 transition-colors font-medium">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
                           </svg>
                           Like
                         </button>
                         <button 
-                          className="flex items-center justify-center py-2 px-4 rounded-md hover:bg-gray-100 text-green-600"
+                          className={`flex items-center justify-center py-2 px-4 rounded-xl hover:bg-gray-100 transition-colors font-medium ${expandedComments[post.id] ? 'text-emerald-600 bg-green-50' : 'text-green-600'}`}
                           onClick={() => toggleComments(post.id)}
                         >
-                          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                           </svg>
                           {expandedComments[post.id] ? 'Hide Comments' : 'Comments'}
                         </button>
-                        <button className="flex items-center justify-center py-2 px-4 rounded-md hover:bg-gray-100 text-green-600">
-                          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <button className="flex items-center justify-center py-2 px-4 rounded-xl hover:bg-gray-100 text-green-600 transition-colors font-medium">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
                           </svg>
                           Share
@@ -355,7 +433,9 @@ function Posts() {
                       
                       {/* Comment section */}
                       {expandedComments[post.id] && (
-                        <CommentSection postId={post.id} />
+                        <div className="mt-4 pt-4 border-t border-gray-200">
+                          <CommentSection postId={post.id} />
+                        </div>
                       )}
                     </div>
                   </>
@@ -364,6 +444,11 @@ function Posts() {
             ))}
           </div>
         )}
+      </div>
+      
+      {/* Footer */}
+      <div className="text-center text-gray-500 text-sm py-4">
+        <p>© 2025 Green Social • Connect with the Earth</p>
       </div>
     </div>
   );
