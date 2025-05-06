@@ -79,7 +79,7 @@ function Dashboard() {
         </div>
         
         <div className="profile-details">
-          <h3>Account Information</h3>
+          <h3>Account Information new testing again and again</h3>
           <div className="info-row">
             <span className="label">Name:</span>
             <span className="value">{user.name}</span>
