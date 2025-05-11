@@ -20,12 +20,9 @@ public class AnswerService {
     
     @Autowired
     private QuestionRepository questionRepository;
-    
-    public List<AnswerDTO> getAnswersByQuestionId(Long questionId) {
-        List<Answer> answers = answerRepository.findByQuestionIdOrderByCreatedAtAsc(questionId);
-        return answers.stream()
-                .map(this::mapAnswerToDTO)
-                .collect(Collectors.toList());
+
+    public List<Answer> getAnswersByQuestionId(Long questionId) {
+        return answerRepository.findByQuestion_IdOrderByCreatedAtAsc(questionId);
     }
     
     @Transactional

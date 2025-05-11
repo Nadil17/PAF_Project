@@ -8,6 +8,5 @@ import java.util.List;
 
 @Repository
 public interface AnswerRepository extends JpaRepository<Answer, Long> {
-    List<Answer> findByQuestionIdOrderByCreatedAtAsc(Long questionId);
-    List<Answer> findByAuthorEmailOrderByCreatedAtDesc(String authorEmail);
+    List<Answer> findByQuestion_IdOrderByCreatedAtAsc(Long questionId);
 }

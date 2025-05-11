@@ -1,6 +1,7 @@
 package com.example.PAF_Back_End.Controller;
 
 import com.example.PAF_Back_End.DTO.AnswerDTO;
+import com.example.PAF_Back_End.Model.Answer;
 import com.example.PAF_Back_End.Service.AnswerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +17,10 @@ public class AnswerController {
     
     @Autowired
     private AnswerService answerService;
-    
+
     @GetMapping("/question/{questionId}")
-    public ResponseEntity<List<AnswerDTO>> getAnswersByQuestionId(@PathVariable Long questionId) {
-        List<AnswerDTO> answers = answerService.getAnswersByQuestionId(questionId);
+    public ResponseEntity<List<Answer>> getAnswersByQuestionId(@PathVariable Long questionId) {
+        List<Answer> answers = answerService.getAnswersByQuestionId(questionId);
         return ResponseEntity.ok(answers);
     }
     
