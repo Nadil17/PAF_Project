@@ -3,6 +3,7 @@ package com.example.PAF_Back_End.Controller;
 import com.example.PAF_Back_End.Model.Post;
 import com.example.PAF_Back_End.Model.User;
 import com.example.PAF_Back_End.Service.UserService;
+import com.example.PAF_Back_End.dto.PlanDTO;
 import com.example.PAF_Back_End.dto.TopicDTO;
 import com.example.PAF_Back_End.dto.UserDTO;
 import jakarta.servlet.http.HttpServletRequest;
@@ -65,5 +66,17 @@ public class UserController {
     @GetMapping("/getAllUsers")
     public List<UserDTO> getAllUsers(){
         return userService.getAllUsers();
+    }
+
+    //add hashtags
+    @PutMapping("/addHashtags")
+    public UserDTO addHashtags(@RequestBody UserDTO userDTO){
+        return userService.addHashtags(userDTO);
+    }
+
+    //get hashtags
+    @GetMapping("/getHashtags/{id}")
+    public UserDTO getHashtags(@PathVariable String id){
+        return userService.getHashtags(id);
     }
 }

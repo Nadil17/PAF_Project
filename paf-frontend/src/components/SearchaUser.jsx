@@ -87,7 +87,7 @@ function SearchaUser() {
 
   return (
     <div>
-      <Header />
+      <Header user={loggedUser}/>
       <div className="max-w-3xl mx-auto p-4">
         {/* Profile Header */}
         <div className="flex items-center gap-4 p-6 bg-gray-100 rounded-xl shadow mb-8">

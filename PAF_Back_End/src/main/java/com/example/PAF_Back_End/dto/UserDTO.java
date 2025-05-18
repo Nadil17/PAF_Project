@@ -5,6 +5,9 @@ public class UserDTO {
     private String name;
     private String email;
     private String imageUrl;
+    private String hashtags;
+
+
 
     // Constructors
     public UserDTO() {}
@@ -47,5 +50,13 @@ public class UserDTO {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public String getHashtags() {
+        return hashtags;
+    }
+
+    public void setHashtags(String hashtags) {
+        this.hashtags = hashtags;
     }
 }

@@ -13,6 +13,16 @@ public class User {
     private String name;
     private String email;
     private String imageUrl;
+    private String hashtags;
+
+
+    public String getHashtags() {
+        return hashtags;
+    }
+
+    public void setHashtags(String hashtags) {
+        this.hashtags = hashtags;
+    }
 
     public String getId() {
         return id;

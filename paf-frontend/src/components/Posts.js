@@ -22,8 +22,21 @@ function Posts() {
   // Track which posts have their comments section expanded
   const [expandedComments, setExpandedComments] = useState({});
 
+  const [loggedUser, setLoggedUser] = useState(null);
+
   useEffect(() => {
     fetchPosts();
+  }, []);
+
+  //get userid from oauth - currently logged user
+    useEffect(() => {
+    axios.get('http://localhost:8080/api/user', { withCredentials: true })
+      .then(response => {
+        setLoggedUser(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching user info:', error);
+      });
   }, []);
 
   const fetchPosts = async () => {
@@ -158,7 +171,7 @@ function Posts() {
 
   return (
     <div>
-      <Header/>
+      <Header user={loggedUser}/>
     <div className="max-w-2xl mx-auto p-4 bg-gray-50 font-sans">
       
 
