@@ -13,6 +13,11 @@ import AddTopics from './components/AddTopics';
 import UpdateTopic from './components/UpdateTopic';
 import SearchaUser from './components/SearchaUser';
 import Home from './components/Home';
+import QuestionList from './components/QuestionList';
+import QuestionDetail from './components//QuestionDetail';
+import AskQuestion from './components/AskQuestion';
+import EditQuestion from './components/EditQuestion';
+import EditAnswer from './components/EditAnswer';
 
 function App() {
   return (
@@ -36,6 +41,13 @@ function App() {
            //Follow
             <Route path="/searchauser/:userId" element={<SearchaUser/>}/>
             <Route path="/home" element={<Home/>}/>
+
+            //question
+            <Route path="/questions" element={<QuestionList/>} />
+          <Route path="/questions/:id" element={<QuestionDetail/>} />
+          <Route path="/ask-question" element={<AskQuestion/>} />
+          <Route path="/edit-question/:id" element={<EditQuestion />} />
+          <Route path="/edit-answer/:id" element={<EditAnswer />} />
         </Routes>
       </div>
     </Router>

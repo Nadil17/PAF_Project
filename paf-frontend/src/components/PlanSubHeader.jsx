@@ -1,10 +1,9 @@
 import React from 'react';
-import { useNavigate, useParams, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 //
 function PlanSubHeader() {
   const navigate = useNavigate();
-  const { userId } = useParams();
   const location = useLocation();
 
   const isCreatePlanPage = location.pathname.includes("/create_a_learning_plan");
@@ -19,23 +18,31 @@ function PlanSubHeader() {
   }
 
   return (
-    <div className="flex space-x-6 mb-8 justify-center">
-      <button 
-        onClick={goToCreatePlan}
-        className={`font-semibold text-lg pb-1 transition duration-300 ${
-          isCreatePlanPage ? 'text-green-600 border-b-2 border-green-600' : 'text-gray-600 hover:text-green-600 hover:border-b-2 hover:border-green-600'
-        }`}
-      >
-        Create Plan
-      </button>
-      <button 
-        onClick={goToViewPlans}
-        className={`font-semibold text-lg pb-1 transition duration-300 ${
-          isViewPlansPage ? 'text-green-600 border-b-2 border-green-600' : 'text-gray-600 hover:text-green-600 hover:border-b-2 hover:border-green-600'
-        }`}
-      >
-        View Plans
-      </button>
+    <div className="bg-white rounded-lg shadow-md p-4 mb-8 mx-auto max-w-md">
+      <h3 className="text-xl font-semibold text-green-700 text-center mb-4">Learning Plans</h3>
+      
+      <div className="flex space-x-4">
+        <button 
+          onClick={goToCreatePlan}
+          className={`flex-1 py-2 px-3 rounded-lg font-medium transition-all ${
+            isCreatePlanPage 
+              ? 'bg-green-600 text-white shadow-sm' 
+              : 'bg-white text-green-700 border border-green-200 hover:bg-green-50'
+          }`}
+        >
+          Create Plan
+        </button>
+        <button 
+          onClick={goToViewPlans}
+          className={`flex-1 py-2 px-3 rounded-lg font-medium transition-all ${
+            isViewPlansPage 
+              ? 'bg-green-600 text-white shadow-sm' 
+              : 'bg-white text-green-700 border border-green-200 hover:bg-green-50'
+          }`}
+        >
+          View Plans
+        </button>
+      </div>
     </div>
   )
 }
