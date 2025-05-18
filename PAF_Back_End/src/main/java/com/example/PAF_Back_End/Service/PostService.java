@@ -37,6 +37,7 @@ public class PostService {
         post.setUserName(userName);
         post.setDescription(description);
 
+
         if (file != null && !file.isEmpty()) {
             String contentType = fileStorageService.getContentType(file);
             String fileName = fileStorageService.storeFile(file);

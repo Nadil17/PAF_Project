@@ -64,6 +64,8 @@ public class PostController {
     }
 
     // Create a new post
+
+
     @PostMapping("/user/posts")
     public ResponseEntity<?> createPost(
             @AuthenticationPrincipal OAuth2User principal,

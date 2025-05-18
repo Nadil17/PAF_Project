@@ -9,4 +9,10 @@ import java.util.List;
 @Repository
 public interface AnswerRepository extends JpaRepository<Answer, Long> {
     List<Answer> findByQuestion_IdOrderByCreatedAtAsc(Long questionId);
+    List<Answer> findByAuthorEmailOrderByCreatedAtDesc(String authorEmail);
+
+    // New sorting methods
+    List<Answer> findByQuestion_IdOrderByReviewsDesc(Long questionId); // Most upvoted first
+    List<Answer> findByQuestion_IdOrderByReviewsDescCreatedAtDesc(Long questionId); // Most upvoted, then newest
+    List<Answer> findByQuestion_IdOrderByCreatedAtDesc(Long questionId); // Newest first
 }
